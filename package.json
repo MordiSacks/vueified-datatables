@@ -1,6 +1,6 @@
 {
   "name": "vueified-datatables",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A vue drop in replacement for datatables",
   "main": "src/vueifiedDataTables/js/vueifiedDataTables.js",
   "repository": {
@@ -19,6 +19,9 @@
   "contributors": [
     {
       "name": "Racheli Elias-Sacks"
+    },
+    {
+      "name": "Yaron Hazan"
     }
   ],
   "license": "MIT",

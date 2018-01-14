@@ -28,6 +28,12 @@ mix
     .sass('src/vueifiedDataTables/scss/vueifiedDataTables.scss', 'dist/vueifiedDataTables')
 ;
 
+/** Build example */
+mix
+    .js('src/example/app.js', 'dist/example')
+    .sass('src/example/app.scss', 'dist/example')
+;
+
 if (!mix.inProduction()) {
     mix.sourceMaps();
 }

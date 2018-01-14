@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <table class="dataTable table table-striped">
+        <table :class="config.tableClasses">
             <thead v-if="config.header">
             <tr role="row">
                 <th v-for="(column, index) in columns" v-text="column.title || column.key || 'N/A'"
@@ -67,33 +67,33 @@
             <div class="dataTables_paginate paging_simple_numbers">
                 <a class="paginate_button first"
                    v-if="config.firstLast"
-                   :class="request.start === 0 ? 'disabled' : ''"
-                   @click="request.start = 0"
+                   :class="currentPage === 0 ? 'disabled' : ''"
+                   @click="goToPage(0)"
                    tabindex="0">{{ _('First') }}</a>
 
                 <a class="paginate_button previous"
-                   :class="request.start - request.length < 0 ? 'disabled' : ''"
-                   @click="request.start -= request.length"
+                   :class="currentPage === 0 ? 'disabled' : ''"
+                   @click="goToPage(currentPage - 1)"
                    tabindex="0">{{ _('Previous') }}</a>
 
                 <span>
                     <a v-for="page in pages"
                        class="paginate_button"
-                       @click="request.start = page * request.length"
+                       @click="goToPage(page)"
                        v-text="page + 1"
-                       :class="request.start === page * request.length ? 'current' : ''"
+                       :class="currentPage === page ? 'current' : ''"
                        tabindex="0"></a>
                 </span>
 
                 <a class="paginate_button next"
-                   :class="request.start + request.length > data.recordsTotal ? 'disabled' : ''"
-                   @click="request.start += request.length"
+                   :class="currentPage === pages[pages.length - 1] ? 'disabled' : ''"
+                   @click="goToPage(currentPage + 1)"
                    tabindex="0">{{ _('Next') }}</a>
 
                 <a class="paginate_button last"
                    v-if="config.firstLast"
-                   :class="request.start === pages[pages.length - 1] * request.length ? 'disabled' : ''"
-                   @click="request.start = pages[pages.length - 1] * request.length"
+                   :class="currentPage === pages[pages.length - 1] ? 'disabled' : ''"
+                   @click="goToPage(pages[pages.length - 1])"
                    tabindex="0">{{ _('Last') }}</a>
             </div>
         </div>
@@ -154,6 +154,7 @@
                 searchPhrase: '',
                 searchTimeout: null,
                 pages: [],
+                currentPage: 0,
 
                 translations,
 
@@ -246,6 +247,7 @@
                         50,
                         100,
                     ],
+                    tableClasses: '',
                     firstLast: false,
                     search: true,
                     header: true,
@@ -354,6 +356,21 @@
 
                 /** Column is not sortable */
                 return 'no-sort sorting_disabled';
+            },
+
+
+            /**
+             * Go to a page
+             */
+            goToPage(page) {
+
+                /** Check if page exists */
+                if (this.pages.indexOf(page) < 0) {
+                    return;
+                }
+
+                this.request.start = page * this.request.length;
+                this.currentPage = page;
             },
 
             /**
