@@ -11,5 +11,6 @@ export default {
         'Last': 'אחרון',
         'Previous': 'הקודם',
         'Next': 'הבא',
+        'Processing...': 'מעבד...',
     },
 };

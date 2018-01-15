@@ -98,7 +98,7 @@
             </div>
         </div>
 
-        <div v-if="loading" class="vueified-datatable-loading"></div>
+        <div v-if="loading" class="dataTables_processing">{{ _('Processing...') }}</div>
     </div>
 </template>
 

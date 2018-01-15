@@ -11,5 +11,6 @@ export default {
         'Last': 'Last',
         'Previous': 'Previous',
         'Next': 'Next',
+        'Processing...': 'Processing...',
     },
 };
