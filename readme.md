@@ -58,7 +58,7 @@ let columns = [
 ];
 ```
 
-column the table will try first to run the `component` function,    
+Table will try first to run the `component` function,    
 then the `render` function, then wil default to the value.
 
 
