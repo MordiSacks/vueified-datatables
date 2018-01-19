@@ -32,7 +32,7 @@ let columns = [
         searchable: true,
         
         // Callback, receives cell value and row, should return a vue component, if is set, cell will render the component
-        template: function(value, row){
+        component: function(value, row){
             return {
                 template: `<i @click="delete" class="fa fa-trash">`,
             };
@@ -42,13 +42,34 @@ let columns = [
         key: 'f_name',
         title: 'First Name',
     },
+    {
+        key: 'l_name',
+        title: 'Last Name',
+    },
+    {
+        key: 'id',
+        title: 'Full Name',
+        
+        // Callback, receives cell value and row, should return string or int
+        render: function(value, row){
+            return `${row.f_name} ${row.l_name}`;
+        },
+    },
 ];
 ```
+
+column the table will try first to run the `component` function,    
+then the `render` function, then wil default to the value.
+
 
 ### options
 - TODO
 
 ## Change log
+### 1.1.0
+1. Renamed column parameter `template` to `component`.
+2. Add `render` column parameter.
+
 ### 1.0.1
 1. Refactored pagination
 2. Added basic stylesheet

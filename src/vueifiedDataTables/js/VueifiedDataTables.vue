@@ -1,6 +1,10 @@
 <template>
     <div :dir="currentLanguage.direction" class="vueified-datatable">
+
+        <!-- Table header controls -->
         <div class="vueified-datatable-header-controls">
+
+            <!-- Results per page -->
             <div v-if="config.configRowsPerPage && config.configRowsPerPage.length > 0"
                  class="dataTables_length">
                 <label>
@@ -14,10 +18,10 @@
                 </label>
             </div>
 
+            <!-- Search -->
             <div v-if="config.search" class="dataTables_filter">
                 <label>
-                    {{ _('Search') }}
-                    :
+                    {{ _('Search') }} :
                     <input type="search"
                            @input="doSearch"
                            v-model="searchPhrase">
@@ -25,26 +29,43 @@
             </div>
         </div>
 
+        <!-- Table -->
         <table :class="config.tableClasses">
+
             <thead v-if="config.header">
             <tr role="row">
-                <th v-for="(column, index) in columns" v-text="column.title || column.key || 'N/A'"
+
+                <!--Loop through defined columns -->
+                <th v-for="(column, index) in columns"
+                    v-text="column.title || column.key || 'N/A'"
                     :class="columnClasses(column ,index)"
                     @click="sortBy(column,index)"></th>
             </tr>
             </thead>
 
             <tbody>
+
+            <!-- Loop through rows -->
             <tr role="row" v-for="row in (data.data) || []">
                 <td v-for="(column, index) in columns"
                     :class="request.order[0].column === index ? 'sorting_1' : ''">
-                    {{ typeof column.template !== 'function' ? row[column.key] || 'N/A' : ''}}
+                    <!-- If we have a component function, render the component -->
+                    <component v-if="typeof column.component === 'function'"
+                               :is="column.component(row[column.key], row)"/>
 
-                    <component v-if="typeof column.template === 'function'"
-                               :is="column.template(row[column.key], row)"></component>
+                    <!-- Else if we have a render function, use it's return value -->
+                    <slot v-else-if="typeof column.render === 'function'">
+                        {{ column.render(row[column.key], row) }}
+                    </slot>
+
+                    <!-- Else, use column value -->
+                    <slot v-else>
+                        {{ row[column.key] || 'N/A' }}
+                    </slot>
                 </td>
             </tr>
 
+            <!-- If we don't have any rows -->
             <tr v-if="typeof data.data !== 'undefined' && data.data.length === 0">
                 <td class="dataTables_empty" :colspan="columns.length">
                     {{ _('No matching records found') }}
@@ -58,24 +79,33 @@
             </tr>
             </tfoot>
         </table>
+
+        <!--Table footer controls -->
         <div class="vueified-datatable-footer-controls">
+
+            <!-- Table row stats -->
             <div class="dataTables_info"
                  role="status"
                  aria-live="polite"
                  v-text="showingString"></div>
 
+            <!-- Pagination -->
             <div class="dataTables_paginate paging_simple_numbers">
+
+                <!-- Go to first page -->
                 <a class="paginate_button first"
                    v-if="config.firstLast"
                    :class="currentPage === 0 ? 'disabled' : ''"
                    @click="goToPage(0)"
                    tabindex="0">{{ _('First') }}</a>
 
+                <!-- Go to previous page -->
                 <a class="paginate_button previous"
                    :class="currentPage === 0 ? 'disabled' : ''"
                    @click="goToPage(currentPage - 1)"
                    tabindex="0">{{ _('Previous') }}</a>
 
+                <!-- All Pages -->
                 <span>
                     <a v-for="page in pages"
                        class="paginate_button"
@@ -85,11 +115,13 @@
                        tabindex="0"></a>
                 </span>
 
+                <!-- Go to next page -->
                 <a class="paginate_button next"
                    :class="currentPage === pages[pages.length - 1] ? 'disabled' : ''"
                    @click="goToPage(currentPage + 1)"
                    tabindex="0">{{ _('Next') }}</a>
 
+                <!-- Go to last page -->
                 <a class="paginate_button last"
                    v-if="config.firstLast"
                    :class="currentPage === pages[pages.length - 1] ? 'disabled' : ''"
@@ -98,13 +130,14 @@
             </div>
         </div>
 
-        <div v-if="loading" class="vueified-datatable-loading"></div>
+
+        <div v-if="loading" class="dataTables_processing">{{ _('Processing...') }}</div>
     </div>
 </template>
 
 <script>
     import jQuery from 'jquery';
-    import translations from '../translations/translations';
+    import translations from './translations/translations';
 
     export default {
         name: 'vueified-datatable',
@@ -383,5 +416,14 @@
                 return this.currentLanguage.strings[string] || string;
             },
         },
+
+        /**
+         *
+         * @param Vue {Vue}
+         * @param options {{}}
+         */
+        install(Vue, options) {
+            Vue.component('vueified-datatable', this);
+        }
     };
 </script>

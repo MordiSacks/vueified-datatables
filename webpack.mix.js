@@ -24,7 +24,7 @@ mix.options({
 
 /** Build src */
 mix
-    .js('src/vueifiedDataTables/js/vueifiedDataTables.js', 'dist/vueifiedDataTables')
+    .js('src/vueifiedDataTables/js/vueifiedDataTables.vue', 'dist/vueifiedDataTables')
     .sass('src/vueifiedDataTables/scss/vueifiedDataTables.scss', 'dist/vueifiedDataTables')
 ;
 

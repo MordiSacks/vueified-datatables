@@ -1,8 +1,8 @@
 {
   "name": "vueified-datatables",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A vue drop in replacement for datatables",
-  "main": "src/vueifiedDataTables/js/vueifiedDataTables.js",
+  "main": "src/vueifiedDataTables/js/vueifiedDataTables.vue",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MordiSacks/vueified-datatables.git"

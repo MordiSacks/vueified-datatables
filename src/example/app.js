@@ -11,6 +11,9 @@ const app = new Vue({
             {
                 key: 'id',
                 title: 'ID',
+                render(value, row){
+                    return value;
+                },
             },
             {
                 key: 'project_id',
@@ -23,6 +26,12 @@ const app = new Vue({
             {
                 key: 'created_at',
                 title: 'Created',
+
+                component(value, row) {
+                    return {
+                        template: `<div>gdsgds</div>`,
+                    };
+                },
             },
         ],
         config: {
