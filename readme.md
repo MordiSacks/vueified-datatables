@@ -63,10 +63,45 @@ then the `render` function, then wil default to the value.
 
 
 ### options
-- TODO
+```js
+let options = {
+    // Current values are the defaults.
+    
+    // Language, currently supports `en` (English) and `he` (Hebrew)
+    // Or you can pass an object with your own language, 
+    // look in a language file (ins translations folder) for more details
+    language: 'en',
+    
+    // Number of rows to display by default
+    rowsPerPage: 10,
+    
+    // Optional number of rows (for select by user)
+    configRowsPerPage: [
+      10,
+      25,
+      50,
+      100,
+   ],
+   
+   // Classes to use in the table element
+   tableClasses: '',
+   
+   // Display first and lat buttons 
+   firstLast: false,
+   
+   // Display the search box
+   search: true,
+   
+   // Display table header
+   header: true,
+   
+   // Display table footer
+   footer: false,
+};
+```
 
 ## Change log
-### 1.1.0
+### 1.1.1
 1. Renamed column parameter `template` to `component`.
 2. Add `render` column parameter.
 
