@@ -163,13 +163,7 @@
                 data: {},
                 request: {
                     draw: 0,
-                    columns: this.columns.map(column => {
-                        return {
-                            data: column.key,
-                            searchable: typeof column.searchable === 'undefined' ? true : column.searchable,
-                            orderable: typeof column.orderable === 'undefined' ? true : column.orderable,
-                        };
-                    }),
+                    columns: [],
                     order: [
                         {
                             column: null,
@@ -186,11 +180,12 @@
 
                 searchPhrase: '',
                 searchTimeout: null,
+
                 pages: [],
                 currentPage: 0,
 
-                translations,
 
+                translations,
                 currentLanguage: {},
 
                 loading: true,
@@ -299,6 +294,21 @@
                 }
             },
 
+            getPreparedRequest() {
+                let vm = this;
+                let request = JSON.parse(JSON.stringify(vm.request));
+
+                request.columns = vm.columns.map(column => {
+                    return {
+                        data: column.key,
+                        searchable: typeof column.searchable === 'undefined' ? true : column.searchable,
+                        orderable: typeof column.orderable === 'undefined' ? true : column.orderable,
+                    };
+                });
+
+                return request;
+            },
+
             /**
              * Load the table data from the provided URL
              */
@@ -308,7 +318,7 @@
                 vm.loading = true;
 
                 jQuery.ajax({
-                    url: vm.url + '?' + jQuery.param(vm.request),
+                    url: vm.url + '?' + jQuery.param(vm.getPreparedRequest()),
                     type: 'get',
                     dataType: 'json',
                 }).done(data => {
