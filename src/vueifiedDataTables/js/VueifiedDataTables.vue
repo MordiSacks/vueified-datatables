@@ -54,13 +54,12 @@
                                :is="column.component(row[column.key], row)"/>
 
                     <!-- Else if we have a render function, use it's return value -->
-                    <slot v-else-if="typeof column.render === 'function'">
-                        {{ column.render(row[column.key], row) }}
-                    </slot>
+                    <slot v-else-if="typeof column.render === 'function'"
+                          v-html="column.render(row[column.key], row)"/>
 
                     <!-- Else, use column value -->
                     <slot v-else>
-                        {{ row[column.key] || 'N/A' }}
+                        {{ row[column.key] !== undefined ? row[column.key] : 'N/A' }}
                     </slot>
                 </td>
             </tr>
@@ -199,40 +198,40 @@
 
                 /** Replace placeholders with values */
                 result += vm._('Showing _START_ to _END_ of _TOTAL_ entries')
-                    .replace(/_START_|_END_|_TOTAL_/g, function (match) {
-                        switch (match) {
-                            case '_START_':
-                                return (vm.request.start + 1);
+                            .replace(/_START_|_END_|_TOTAL_/g, function (match) {
+                                switch (match) {
+                                    case '_START_':
+                                        return (vm.request.start + 1);
 
-                            case '_END_':
-                                if (vm.data.recordsFiltered === vm.data.recordsTotal) {
-                                    return (
-                                        vm.request.start + vm.request.length > vm.data.recordsTotal
-                                            ? vm.data.recordsTotal
-                                            : (vm.request.start + vm.request.length)
-                                    );
-                                } else {
-                                    return (
-                                        vm.request.start + vm.request.length > vm.data.recordsFiltered
-                                            ? vm.data.recordsFiltered
-                                            : (vm.request.start + vm.request.length)
-                                    );
+                                    case '_END_':
+                                        if (vm.data.recordsFiltered === vm.data.recordsTotal) {
+                                            return (
+                                                vm.request.start + vm.request.length > vm.data.recordsTotal
+                                                    ? vm.data.recordsTotal
+                                                    : (vm.request.start + vm.request.length)
+                                            );
+                                        } else {
+                                            return (
+                                                vm.request.start + vm.request.length > vm.data.recordsFiltered
+                                                    ? vm.data.recordsFiltered
+                                                    : (vm.request.start + vm.request.length)
+                                            );
+                                        }
+
+                                    case '_TOTAL_':
+                                        if (vm.data.recordsFiltered === vm.data.recordsTotal) {
+                                            return vm.data.recordsTotal;
+                                        } else {
+                                            return vm.data.recordsFiltered;
+                                        }
+
                                 }
-
-                            case '_TOTAL_':
-                                if (vm.data.recordsFiltered === vm.data.recordsTotal) {
-                                    return vm.data.recordsTotal;
-                                } else {
-                                    return vm.data.recordsFiltered;
-                                }
-
-                        }
-                    });
+                            });
 
                 /** If results are filtered */
                 if (vm.data.recordsFiltered !== vm.data.recordsTotal) {
                     result += ' ' + vm._('(filtered from _MAX_ total entries)')
-                        .replace('_MAX_', vm.data.recordsTotal);
+                                      .replace('_MAX_', vm.data.recordsTotal);
                 }
 
                 return result;
@@ -288,14 +287,14 @@
             loadLanguage() {
                 if (typeof this.config.language === 'object') {
                     this.currentLanguage.direction = this.config.language.direction || this.translations.en.direction;
-                    this.currentLanguage.strings = Object.assign(this.translations.en.strings, this.config.language.strings);
+                    this.currentLanguage.strings   = Object.assign(this.translations.en.strings, this.config.language.strings);
                 } else {
                     this.currentLanguage = this.translations[this.config.language];
                 }
             },
 
             getPreparedRequest() {
-                let vm = this;
+                let vm      = this;
                 let request = JSON.parse(JSON.stringify(vm.request));
 
                 request.columns = vm.columns.map(column => {
@@ -413,7 +412,7 @@
                 }
 
                 this.request.start = page * this.request.length;
-                this.currentPage = page;
+                this.currentPage   = page;
             },
 
             /**
