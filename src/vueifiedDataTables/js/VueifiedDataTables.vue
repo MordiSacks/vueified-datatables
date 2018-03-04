@@ -54,8 +54,8 @@
                                :is="column.component(row[column.key], row)"/>
 
                     <!-- Else if we have a render function, use it's return value -->
-                    <slot v-else-if="typeof column.render === 'function'"
-                          v-html="column.render(row[column.key], row)"/>
+                    <div v-else-if="typeof column.render === 'function'"
+                         v-html="column.render(row[column.key], row)"></div>
 
                     <!-- Else, use column value -->
                     <slot v-else>
