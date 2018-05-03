@@ -12,7 +12,11 @@
 
 <div id="app">
     <div class="container">
-        <vueified-datatable :url="url" :columns="columns" :options="config"></vueified-datatable>
+        <vueified-datatable :url="url" :columns="columns" :options="config">
+            <template slot="header">
+                <a href="#">FIsh</a>
+            </template>
+        </vueified-datatable>
     </div>
 </div>
 

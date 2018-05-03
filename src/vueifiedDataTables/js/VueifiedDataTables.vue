@@ -18,6 +18,11 @@
                 </label>
             </div>
 
+            <!-- Header custom content -->
+            <div class="dataTables_center">
+                <slot name="header"/>
+            </div>
+
             <!-- Search -->
             <div v-if="config.search" class="dataTables_filter">
                 <label>
@@ -300,6 +305,7 @@
                 request.columns = vm.columns.map(column => {
                     return {
                         data: column.key,
+                        name: column.name || null,
                         searchable: typeof column.searchable === 'undefined' ? true : column.searchable,
                         orderable: typeof column.orderable === 'undefined' ? true : column.orderable,
                     };
