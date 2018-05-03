@@ -18,11 +18,6 @@
                 </label>
             </div>
 
-            <!-- Header custom content -->
-            <div class="dataTables_center">
-                <slot name="header"/>
-            </div>
-
             <!-- Search -->
             <div v-if="config.search" class="dataTables_filter">
                 <label>
@@ -32,6 +27,12 @@
                            v-model="searchPhrase">
                 </label>
             </div>
+
+            <!-- Header custom content -->
+            <div class="dataTables_center">
+                <slot name="header"/>
+            </div>
+
         </div>
 
         <!-- Table -->
