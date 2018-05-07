@@ -1,6 +1,4 @@
 {
     "/example/app.js": "/example/app.js",
-    "/vueifiedDataTables/vueifiedDataTables.js": "/vueifiedDataTables/vueifiedDataTables.js",
-    "/vueifiedDataTables/vueifiedDataTables.css": "/vueifiedDataTables/vueifiedDataTables.css",
-    "/example/app.css": "/example/app.css"
+    "/VueifiedDataTables.js": "/VueifiedDataTables.js"
 }

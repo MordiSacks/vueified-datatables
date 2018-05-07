@@ -5,7 +5,7 @@ Run
 `yarn add vueified-datatables` or `npm install vueified-datatables`  
 In your code
 ```js
-import VueifiedDataTables from 'vueifiedDataTables';
+import VueifiedDataTables from 'VueifiedDataTables';
 
 Vue.use(VueifiedDataTables);
 ```  
@@ -20,7 +20,7 @@ Then in your template
 let columns = [
     {
         // the key to read from json
-        key: 'id',
+        data: 'id',
          
         // the table header (optional, will use key by default)
         title: 'User ID',
@@ -67,10 +67,9 @@ then the `render` function, then wil default to the value.
 let options = {
     // Current values are the defaults.
     
-    // Language, currently supports `en` (English) and `he` (Hebrew)
-    // Or you can pass an object with your own language, 
+    // Language you can pass an object with your own language, 
     // look in a language file (ins translations folder) for more details
-    language: 'en',
+    language: {},
     
     // Number of rows to display by default
     rowsPerPage: 10,
@@ -99,14 +98,3 @@ let options = {
    footer: false,
 };
 ```
-
-## Change log
-### 1.1.1
-1. Renamed column parameter `template` to `component`.
-2. Add `render` column parameter.
-
-### 1.0.1
-1. Refactored pagination
-2. Added basic stylesheet
-3. Updated readme 
-

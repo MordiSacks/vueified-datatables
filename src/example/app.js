@@ -1,104 +1,67 @@
 import Vue from 'vue';
-import VueifiedDataTables from '../vueifiedDataTables/js/vueifiedDataTables';
+import VueifiedDataTables from '../VueifiedDataTables';
+import VueifiedDataTablesHE from '../translations/he';
 
 Vue.use(VueifiedDataTables);
 
 const app = new Vue({
     el: '#app',
     data: {
-        url: 'https://exmaple.com/json',
+        url: 'https://example.com',
         columns: [
             {
-                key: 'full_name',
-                title: 'Name',
-            },
-            {
-                key: 'Budget',
-                title: 'Budget',
-            },
-            {
-                key: 'phone_numbers',
-                name: 'lead_phone_numbers.phone_number',
-                title: 'Phone Numbers',
-                render(value, row) {
-                    if (!Array.isArray(value)) {
-                        return 'N/A';
-                    }
-
-                    if (value.length === 1) {
-                        return `<span>${value[0].phone_number}</span>`;
-                    }
-
-                    let response = '';
-
-                    for (let i = 0; i < value.length; i++) {
-                        response += `
-                                    <span style="text-transform: capitalize">${value[i].label}:</span>
-                                    <span>${value[i].phone_number}</span>,
-                                    `;
-                    }
-
-                    return response;
-                },
-            },
-            {
-                key: 'emails',
-                title: 'Emails',
-                render(value, row) {
-                    if (!Array.isArray(value)) {
-                        return 'N/A';
-                    }
-
-                    if (value.length === 1) {
-                        return `<span>${value[0].email}</span>`;
-                    }
-
-                    let response = '';
-
-                    for (let i = 0; i < value.length; i++) {
-                        response += `
-                                    <span style="text-transform: capitalize">${value[i].label}:</span>
-                                    <span>${value[i].email}</span>,
-                                    `;
-                    }
-
-                    return response;
-                },
-            },
-            {
-                key: 'created_at',
-                title: 'Date',
-            },
-        ],
-        columnsOld: [
-            {
-                key: 'id',
+                data: 'id',
                 title: 'ID',
-                render(value, row) {
-                    return value;
-                },
-            },
-            {
-                key: 'project_id',
-                title: 'Project ID',
-            },
-            {
-                key: 'name',
-                title: 'Name',
-            },
-            {
-                key: 'created_at',
-                title: 'Created',
-
-                component(value, row) {
+                component(val, row) {
                     return {
-                        template: `<div>gdsgds</div>`,
+                        data() {
+                            return {
+                                val,
+                            };
+                        },
+                        template: `<div @click="$parent.$parent.a(val)" v-text="val"></div>`,
                     };
                 },
             },
+            {
+                data: 'full_name',
+                name: 'full_name',
+                title: 'Full Name',
+                searchable: true,
+                orderable: true,
+                render(val, row) {
+                    return val.split('').join('-');
+                },
+            },
+            {
+                data: 'address',
+                title: 'Address',
+            },
+            {
+                data: 'created_at',
+                title: 'Date',
+            },
         ],
-        config: {
-            footer: !true,
+        options: {
+            language: VueifiedDataTablesHE,
+            search: true,
+            header: true,
+            footer: false,
+            firstLast: true,
+            rowsPerPage: 10,
+            availableRowsPerPage: [
+                10,
+                25,
+                50,
+                100,
+            ],
+        },
+
+    },
+
+    methods: {
+        a(val) {
+            alert(val);
         },
     },
 });

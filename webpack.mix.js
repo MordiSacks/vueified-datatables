@@ -1,4 +1,3 @@
-let path = require('path');
 /**
  *
  * @type {*|Api}
@@ -23,16 +22,10 @@ mix.options({
 });
 
 /** Build src */
-mix
-    .js('src/vueifiedDataTables/js/vueifiedDataTables.vue', 'dist/vueifiedDataTables')
-    .sass('src/vueifiedDataTables/scss/vueifiedDataTables.scss', 'dist/vueifiedDataTables')
-;
+mix.js('src/VueifiedDataTables.vue', 'dist/');
 
 /** Build example */
-mix
-    .js('src/example/app.js', 'dist/example')
-    .sass('src/example/app.scss', 'dist/example')
-;
+mix.js('src/example/app.js', 'dist/example/');
 
 if (!mix.inProduction()) {
     mix.sourceMaps();

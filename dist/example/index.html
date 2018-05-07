@@ -5,17 +5,72 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>VueifiedDataTables example</title>
-    <link rel="stylesheet" href="app.css">
+    <title>Vueified DataTable example</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .container {
+            max-width: 95%;
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
+            background-color: whitesmoke;
+        }
+
+        h1 {
+            padding: 1em;
+            text-align: center;
+            text-decoration: underline;
+            color: #70e0b8;
+        }
+
+       .vueified-datatable {
+            padding: 1em;
+            background-color: white;
+        }
+
+        .vueified-datatable-header > div {
+            padding: 1em;
+        }
+
+        .vueified-datatable-footer > div {
+            padding: 1em;
+        }
+
+        .vueified-datatable-table thead tr {
+            background-color: #70e0b8;
+        }
+
+        .vueified-datatable-table tbody tr:nth-child(even) {
+            background-color: rgba(112, 224, 184, 0.2);
+        }
+
+        .vueified-datatable-table th,
+        .vueified-datatable-table td {
+            border: 1px solid;
+            padding: 0.3em;
+        }
+    </style>
 </head>
 <body>
-
 <div id="app">
+    <h1>Vueified DataTable example</h1>
     <div class="container">
-        <vueified-datatable :url="url" :columns="columns" :options="config">
-            <template slot="header">
-                <a href="#">FIsh</a>
-            </template>
+        <vueified-datatable :url="url" :columns="columns" :options="options">
+            <slot slot="header">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+            </slot>
+            <slot slot="footer">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+            </slot>
         </vueified-datatable>
     </div>
 </div>
