@@ -135,6 +135,12 @@
 
         </div>
         <!--/Footer-->
+
+        <!--Loader-->
+        <div class="vueified-datatable-loading-overlay" v-if="loading">
+            <div class="vueified-datatable-loading"></div>
+        </div>
+        <!--/Loader-->
     </div>
 </template>
 
@@ -425,6 +431,20 @@
 </script>
 
 <style lang="scss">
+    @keyframes spinAround {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(359deg);
+        }
+    }
+
+    .vueified-datatable {
+        position: relative;
+    }
+
     .vueified-datatable-header,
     .vueified-datatable-footer {
         display: flex;
@@ -466,6 +486,29 @@
             &.sorting_desc {
                 background-image: url('https://cdn.datatables.net/1.10.16/images/sort_desc.png');
             }
+        }
+    }
+
+    .vueified-datatable-loading-overlay {
+        display: flex;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        background-color: rgba(0, 0, 0, 0.2);
+
+        .vueified-datatable-loading {
+            margin: auto;
+            animation: spinAround 500ms infinite linear;
+            border-radius: 50%;
+            content: "";
+            width: 2em;
+            height: 2em;
+            border: 2px solid #555;
+            border-right-color: transparent;
+            border-top-color: transparent;
         }
     }
 

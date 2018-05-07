@@ -43,7 +43,7 @@ const app = new Vue({
             },
         ],
         options: {
-            language: VueifiedDataTablesHE,
+           // language: VueifiedDataTablesHE,
             search: true,
             header: true,
             footer: false,
