@@ -342,11 +342,11 @@
             columnClasses(column, index) {
                 /** If column is being sorted */
                 if (this.request.order[0].column === index) {
-                    return this.request.order[0].dir === 'desc' ? 'sorting_desc' : 'sorting_asc';
+                    return 'sortable ' + (this.request.order[0].dir === 'desc' ? 'sorting_desc' : 'sorting_asc');
                 }
                 /** If column is sortable */
                 if (typeof column.orderable === 'undefined' || column.orderable === true) {
-                    return 'sorting';
+                    return 'sortable sorting';
                 }
                 /** Column is not sortable */
                 return 'no-sort sorting_disabled';
@@ -471,7 +471,8 @@
     .vueified-datatable-table {
         border-spacing: 0;
         width: 100%;
-        th {
+
+        th.sortable {
             cursor: pointer;
             background: no-repeat center right;
 

@@ -12,6 +12,7 @@ const app = new Vue({
             {
                 data: 'id',
                 title: 'ID',
+                orderable: false,
                 component(val, row) {
                     return {
                         data() {
