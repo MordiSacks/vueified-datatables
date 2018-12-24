@@ -171,6 +171,7 @@
             return {
                 config: {
                     language: EN,
+                    headers: {},
                     search: true,
                     header: true,
                     footer: false,
@@ -312,6 +313,7 @@
                         return Qs.stringify(params, {arrayFormat: 'indices'})
                     },
                     params: vm.request,
+                    headers: vm.config.headers,
                 })
                      .then(response => {
                          vm.response = response.data;
