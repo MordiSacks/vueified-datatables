@@ -51,7 +51,7 @@
                 <td v-for="(column, ci) in columns">
 
                     <!-- If we have a component function, render the component -->
-                    <component v-if="typeof column.component === 'function'"
+                    <component v-if="typeof column.component === 'function'" :row="row"
                                :is="column.component(row[column.data], row)"/>
 
                     <!-- Else if we have a render function, use it's return value -->

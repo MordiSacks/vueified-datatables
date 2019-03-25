@@ -1,6 +1,6 @@
 {
   "name": "vueified-datatables",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A vue drop in replacement for datatables",
   "main": "src/VueifiedDataTables.vue",
   "repository": {

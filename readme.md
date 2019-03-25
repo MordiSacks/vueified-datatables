@@ -39,15 +39,15 @@ let columns = [
         },
     },
     {
-        key: 'f_name',
+        data: 'f_name',
         title: 'First Name',
     },
     {
-        key: 'l_name',
+        data: 'l_name',
         title: 'Last Name',
     },
     {
-        key: 'id',
+        data: 'id',
         title: 'Full Name',
         
         // Callback, receives cell value and row, should return string or int
