@@ -85,7 +85,7 @@ let options = {
    // Classes to use in the table element
    tableClasses: '',
    
-   // Display first and lat buttons 
+   // Display first and last buttons 
    firstLast: false,
    
    // Display the search box
